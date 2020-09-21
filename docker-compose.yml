@@ -1,0 +1,25 @@
+# On the docker host
+# type 'xhost +', and then you can run this with
+#    docker-compose run --rm openvga
+# Type casabrowser at the prompt, and you will find the measurement set in the /remote directory. 
+version: '3.5'
+
+services:
+
+  openvga:
+    container_name: openvga
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '/home/tim/astro/:/remote'
+      - ${XAUTHORITY}:/tmp/.Xauthority
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY
+      - XAUTHORITY=/tmp/.Xauthority
+      - QT_X11_NO_MITSHM=1
+      - LIBOVERLAY_SCROLLBAR=0
+      - LANG=en_US.UTF-8  
+      - LANGUAGE=en_US:en  
+      - LC_ALL=en_US.UTF-8     
