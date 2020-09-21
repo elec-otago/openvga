@@ -1,0 +1,199 @@
+<architecture name="tta16">
+	<parse_flags separator=","/>
+	<processor_model>
+		<data width="16"/>
+		<pc width="10" program_output_min_size="1024" type="mfsr">
+			<xor to="0" from="3"/>
+		</pc>
+<!-- 		<pc width="10" program_output_min_size="1024" type="base2"/> -->
+		<instruction width="32"/>
+	</processor_model>
+	<reg_model>
+		<ext_field id="rs0" max="15" bits="8-10,14" offset="-1"/>
+		<ext_field id="rs1" max="15" bits="11-14" offset="-1"/>
+		<ext_field id="rd" max="15" bits="11-14" offset="1"/>
+		<ext_field id="imml" max="2047" bits="0-10"/>
+		<ext_field id="imms" max="255" bits="0-7"/>
+		<ext_field id="branch" max="1023" start="22" width="10"/>
+	</reg_model>
+	<token_maps>
+	</token_maps>
+	<instruction_model>
+		<instruction name="tr0">
+			<option>
+				<token value="\"/>
+				<part start="30" width="2">
+					<value name="RREG" value="2" ext_field="rs0"/>
+				</part>
+				<token value="->"/>
+				<part start="27" width="3">
+					<value name="nil" value="0"/>
+					<value name="bra" value="1"/>
+					<value name="rad" value="2"/>
+					<value name="wad" value="3"/>
+					<value name="jb" value="4"/>
+					<value name="jnb" value="5"/>
+					<value name="jz" value="6"/>
+					<value name="jnz" value="7"/>
+				</part>
+			</option>
+			<option>
+				<part start="30" width="2">
+					<value name="com" value="0"/>
+					<value name="IMMEDIATE" value="1" ext_field="imml"/>
+					<value name="LABEL" value="1" ext_field="imml"/>
+					<value name="RREG" value="2" ext_field="rs0"/>
+					<value name="mem" value="3"/>
+				</part>
+				<token value="->"/>
+				<part start="27" width="3">
+					<value name="nil" value="0"/>
+					<value name="bra" value="1"/>
+					<value name="rad" value="2"/>
+					<value name="wad" value="3"/>
+					<value name="jb" value="4"/>
+					<value name="jnb" value="5"/>
+					<value name="jz" value="6"/>
+					<value name="jnz" value="7"/>
+				</part>
+			</option>
+			<option>
+				<part start="27" width="5">
+					<value name="" value="0"/>
+				</part>
+			</option>
+		</instruction>
+		<instruction name="tr1">
+			<option>
+				<part start="25" width="2">
+					<value name="com" value="0"/>
+					<value name="IMMEDIATE" value="1" ext_field="imms"/>
+					<value name="RREG" value="2" ext_field="rs0"/>
+					<value name="mem" value="3"/>
+				</part>
+				<token value="->"/>
+				<part start="22" width="3">
+					<value name="nil" value="0"/>
+					<value name="sub" value="1"/>
+					<value name="sbb" value="2"/>
+					<value name="cmp" value="3"/>
+					<value name="nand" value="4"/>
+					<value name="and" value="5"/>
+					<value name="or" value="6"/>
+					<value name="xor" value="7"/>
+				</part>
+			</option>
+			<option>
+				<token value="\"/>
+				<part bits="25-26">
+					<value name="RREG" value="2" ext_field="rs0"/>
+				</part>
+				<token value="->"/>
+				<part bits="22-24">
+					<value name="nil" value="0"/>
+					<value name="sub" value="1"/>
+					<value name="sbb" value="2"/>
+					<value name="cmp" value="3"/>
+					<value name="nand" value="4"/>
+					<value name="and" value="5"/>
+					<value name="or" value="6"/>
+					<value name="xor" value="7"/>
+				</part>
+			</option>
+			<option>
+				<part start="22" width="5">
+					<value name="" value="0"/>
+				</part>
+			</option>
+		</instruction>
+		<instruction name="tr2">
+			<option>
+				<part start="20" width="2">
+					<value name="com" value="0"/>
+					<value name="diff" value="1"/>
+					<value name="RREG" value="2" ext_field="rs1"/>
+					<value name="pc" value="3"/>
+				</part>
+				<token value="->"/>
+				<part start="18" width="2">
+					<value name="mem" value="0"/>
+					<value name="RREG" value="1" ext_field="rd"/>
+					<value name="mul" value="2"/>
+					<value name="msr" value="3"/>
+				</part>
+			</option>
+			<option>
+				<part start="20" width="2">
+					<value name="com" value="0"/>
+					<value name="diff" value="1"/>
+					<value name="RREG" value="2" ext_field="rs1"/>
+					<value name="pc" value="3"/>
+				</part>
+				<token value="->"/>
+				<part start="18" width="2">
+					<value name="RREG" value="1" ext_field="rd"/>
+				</part>
+				<token value="\"/>
+			</option>
+			<option>
+				<token value="\"/>
+				<part start="20" width="2">
+					<value name="RREG" value="2" ext_field="rs1"/>
+				</part>
+				<token value="->"/>
+				<part start="18" width="2">
+					<value name="mem" value="0"/>
+					<value name="RREG" value="1" ext_field="rd"/>
+					<value name="mul" value="2"/>
+					<value name="msr" value="3"/>
+				</part>
+			</option>
+			<option>
+				<token value="\"/>
+				<part start="20" width="2">
+					<value name="RREG" value="2" ext_field="rs1"/>
+				</part>
+				<token value="->"/>
+				<part start="18" width="2">
+					<value name="RREG" value="1" ext_field="rd"/>
+				</part>
+				<token value="\"/>
+			</option>
+			<option>
+				<part start="18" width="4">
+					<value name="" value="0"/>
+				</part>
+			</option>
+		</instruction>
+		<instruction name="tr3">
+			<option>
+				<part start="15" width="3">
+					<value name="com" value="0"/>
+					<value name="IMMEDIATE" value="1" ext_field="imms"/>
+					<value name="RREG" value="2" ext_field="rs1"/>
+					<value name="mem" value="3"/>
+					<value name="diff" value="4"/>
+					<value name="bits" value="5"/>
+					<value name="plo" value="6"/>
+					<value name="phi" value="7"/>
+				</part>
+			</option>
+			<option>
+				<token value="\"/>
+				<part start="15" width="3">
+					<value name="RREG" value="2" ext_field="rs1"/>
+				</part>
+			</option>
+			<option>
+				<part start="15" width="3">
+					<value name="" value="0"/>
+				</part>
+			</option>
+		</instruction>
+	</instruction_model>
+	<timing_model>
+		<bus name="diff" latency="1"/>
+		<bus name="plo" latency="1"/>
+		<bus name="phi" latency="1"/>
+	</timing_model>
+</architecture>

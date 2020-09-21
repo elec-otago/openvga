@@ -1,0 +1,191 @@
+<architecture name="oTTAnic1">
+	<parse_flags separator=","/>
+	<processor_model>
+		<data width="18"/>
+		<pc width="9" program_output_min_size="512" type="mfsr_base2_hybrid" base2_width="4">
+			<xor to="0" from="4"/>
+		</pc>
+		<instruction width="72"/>
+	</processor_model>
+	<reg_model>
+		<ext_field id="rf0" max="31" start="25" width="5"/>
+		<ext_field id="rf1" max="31" start="30" width="5"/>
+		<ext_field id="rf2" max="31" start="35" width="5"/>
+		<ext_field id="rf3" max="31" start="40" width="5"/>
+		
+<!--		<ext_field id="immediate" start="54" width="18"/> -->
+		<ext_field id="immediate" bits="68-71,54-67"/>
+		
+		<ext_field id="branch0" max="511" start="45" width="9"/>
+		<ext_field id="branch1" start="54" width="9"/>
+		<ext_field id="branch2" max="511" start="63" width="9"/>
+	</reg_model>
+	<token_maps>
+		<token_map name="multiply" width="2">
+			<value name="mult" value="0"/>
+			<value name="mneg" value="1"/>
+			<value name="macc" value="2"/>
+			<value name="mdep" value="3"/>
+		</token_map>
+	</token_maps>
+	<instruction_model>
+		<instruction name="mult0">
+			<option>
+				<part start="0" width="2">
+					<value name="previous" value="0"/>
+					<value name="RREG" value="1" ext_field="rf0"/>
+					<value name="mout" value="2"/>
+				</part>
+				<token value="->"/>
+				<part start="0" width="0">
+					<value name="mul0" value="0"/>
+				</part>
+			</option>
+			<option>
+				<part start="0" width="2">
+					<value name="" value="0"/>
+				</part>
+			</option>
+		</instruction>
+		Let's put a comment in here
+		<instruction name="mult1">
+			<option>
+				<part start="2" width="2">
+					<value name="RREG" value="1" ext_field="rf1"/>
+					<value name="sout" value="2"/>
+					<value name="cycle" value="3"/>
+				</part>
+				<token value="->"/>
+				<!--				<part start="4" width="2">
+					<value name="mult" value="0"/>
+					<value name="mneg" value="1"/>
+					<value name="macc" value="2"/>
+					<value name="mdep" value="3"/>
+				</part>-->
+				<token_map name="multiply" start="4" width="2"/>
+			</option>
+			<option>
+				<part start="2" width="4">
+					<value name="" value="0"/>
+				</part>
+			</option>
+		</instruction>
+		<instruction name="sub0">
+			<option>
+				<part start="6" width="2">
+					<value name="RREG" value="1" ext_field="rf2"/>
+					<value name="mem" value="3"/>
+				</part>
+				<token value="->"/>
+				<part start="0" width="0">
+					<value name="sub0" value="0"/>
+				</part>
+			</option>
+			<option>
+				<part start="6" width="2">
+					<value name="" value="0"/>
+				</part>
+			</option>
+		</instruction>
+		<instruction name="sub1">
+			<option>
+				<part start="8" width="2">
+					<value name="RREG" value="1" ext_field="rf1"/>
+					<value name="cycle" value="2"/>
+					<value name="mem" value="3"/>
+				</part>
+				<token value="->"/>
+				<part start="0" width="0">
+					<value name="sub1" value="0"/>
+				</part>
+			</option>
+			<option>
+				<part start="8" width="2">
+					<value name="" value="0"/>
+				</part>
+			</option>
+		</instruction>
+		<instruction name="dest">
+			<option>
+				<part start="10" width="2">
+					<value name="mout" value="2"/>
+					<value name="mem" value="3"/>
+				</part>
+				<token value="->"/>
+				<part start="0" width="0">
+					<value name="RREG" value="0" ext_field="rf3"/>
+				</part>
+			</option>
+			<option>
+				<part start="10" width="2">
+					<value name="" value="0"/>
+				</part>
+			</option>
+		</instruction>
+		<instruction name="alu0">
+			<option>
+				<part start="12" width="3">
+					<value name="" value="0"/>
+					<value name="mout" value="2"/>
+					<value name="sout" value="3"/>
+					<value name="IMMEDIATE" value="4" ext_field="immediate"/>
+				</part>
+				<token value="\>"/>
+				<part start="15" width="3">
+					<value name="" value="0"/>
+					<value name="RREG" value="1" ext_field="rf0"/>
+				</part>
+			</option>
+			<option>
+				<part start="12" width="6">
+					<value name="" value="0"/>
+				</part>
+			</option>
+		</instruction>
+		<instruction name="alu1">
+			<option>
+				<part start="18" width="3">
+					<value name="" value="0"/>
+					<value name="RREG" value="1" ext_field="rf1"/>
+					<value name="mout" value="2"/>
+					<value name="sout" value="3"/>
+				</part>
+				<token value="\>"/>
+				<part start="21" width="3">
+					<value name="" value="0"/>
+					<value name="cmp_hit" value="2"/>
+					<value name="cmpz" value="3"/>
+					<value name="cycle" value="4"/>
+					<value name="io" value="6"/>
+				</part>
+			</option>
+			<option>
+				<part start="18" width="6">
+					<value name="branch" value="56"/>
+				</part>
+				<token value="("/>
+				<part start="0" width="0">
+					<value name="LABEL" value="0" ext_field="branch0"/>
+				</part>
+				<token value=":"/>
+				<part start="0" width="0">
+					<value name="LABEL" value="0" ext_field="branch1"/>
+				</part>
+				<token value=":"/>
+				<part start="0" width="0">
+					<value name="LABEL" value="0" ext_field="branch2"/>
+				</part>
+				<token value=")"/>
+			</option>
+			<option>
+				<part start="18" width="6">
+					<value name="" value="0"/>
+				</part>
+			</option>
+		</instruction>
+	</instruction_model>
+	<timing_model>
+		<bus name="mout" latency="4"/>
+		<bus name="sout" latency="2"/>
+	</timing_model>
+</architecture>

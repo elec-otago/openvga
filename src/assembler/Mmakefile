@@ -1,0 +1,10 @@
+MAIN_TARGET=assemble
+GRADE=hlc.gc
+
+# Static linking
+# EXTRA_MLFLAGS = --dynamic
+# --mercury-libs static
+
+depend: assemble.depend
+
+default_target: assemble
