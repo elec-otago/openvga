@@ -2,6 +2,8 @@
 
 OpenVGA was an M.Sc project in the Elec Research Group at the University of Otago by Patrick Suggate under the supervision of Tim Molteno.
 
+OpenVGA is licensed under the GPL v3.
+
 Copyright 2009 Patrick Suggate
 
 
