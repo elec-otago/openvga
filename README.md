@@ -1,4 +1,4 @@
-=	The OpenVGA Open Graphics Adapter =
+#	The OpenVGA Open Graphics Adapter #
 
 OpenVGA was an M.Sc project in the Elec Research Group at the University of Otago by Patrick Suggate under the supervision of Tim Molteno.
 
@@ -8,7 +8,7 @@ Copyright 2009 Patrick Suggate
 
 
 
-== What is OpenVGA? ==
+## What is OpenVGA? ##
 
 OpenVGA is an open-source hardware graphics adapter project. The project has a PCB design, the Verilog describing the logic within the FPGA (including processors, a memory controller, a PCI to Wishbone bridge, and a fast data-cache), a simple Linux kernel module, and some miscellaneous tools. The tools include a TTA assembler, the RISC16 assembler, a CRT simulator, and some scripts for data conversion tasks.
 
@@ -20,20 +20,20 @@ Also included in this package are components developed by others:
 
 
 
-== Verilog Source Simulation and Synthesis Instructions ==
+## Verilog Source Simulation and Synthesis Instructions ##
 
-=== Software Requirements:
+### Software Requirements:
 
  - Icarus Verilog for simulation.
  - GtkWave for displaying created waveforms.
  - Xilinx synthesis toolchain, currently expected to be installed to `/opt/Xilinx'
    The following line within rtl/makefile needs to modified if the location is different:
-	export XILINX=/opt/Xilinx
+	export XILINX#/opt/Xilinx
  - A working Mercury compiler install if the TTA assembler needs to be (re)built, a working binary is contained within the `bin' folder though.
  - A working Python setup is needed to run the Python scripts within the `tools' folder. wxPython is needed to run a couple of these scripts too.
  - The `m4' macro processor is needed for assembling also.
 
-=== Building
+### Building
 
  - Synthesising:
 	make
