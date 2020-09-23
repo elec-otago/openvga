@@ -21,7 +21,6 @@ COPY src /openvga/src
 # Now try and build the mercury assembler (mercurylang.org)
 WORKDIR /openvga/src/assembler
 
-RUN mmc -make assemble.depend
-RUN mmc -make assemble
+RUN mmc --make assemble
 
 ENV LANG en_US.UTF-8 
