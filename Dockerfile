@@ -15,7 +15,13 @@ RUN wget https://paul.bone.id.au/paul.asc && \
 
 WORKDIR /openvga
 
-COPY .. /openvga
+COPY tools /openvga/tools
+COPY src /openvga/src
 
+# Now try and build the mercury assembler (mercurylang.org)
+WORKDIR /openvga/src/assembler
+
+RUN mmc -make assemble.depend
+RUN mmc -make assemble
 
 ENV LANG en_US.UTF-8 
